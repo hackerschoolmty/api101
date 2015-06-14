@@ -4,19 +4,19 @@ Because we all want to talk to each other, no matter what.
 
 ###Topics
 * Introduction to APIs
-	* [Why should I care?](why-should-i-care)
-	* [Webservice structure](webservice-structure)
-	* [Resources & relationships structure](resources--relationships-structure)
-	* [Content-Negotiation](content-negotiation)
-	* [Actually using the API](actually-using-the-api)
-* [Versioning](versioning)
+	* [Why should I care?](#why-should-i-care)
+	* [Webservice structure](#webservice-structure)
+	* [Resources & relationships structure](#resources--relationships-structure)
+	* [Content-Negotiation](#content-negotiation)
+	* [Actually using the API](#actually-using-the-api)
+* [Versioning](#versioning)
 	* Parameter
 	* URL parameters
 	* Headers
-* [ActiveModelSerializers](activemodelserializers)
-* [Exploring API](exploring-api)
+* [ActiveModelSerializers](#activemodelserializers)
+* [Exploring API](#exploring-api)
 	* Sabisu
-* [Resources](resources)
+* [Resources](#resources)
 
 --
 
