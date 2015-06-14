@@ -34,7 +34,7 @@ Because we all want to talk to each other, no matter what.
 
 ####Webservice structure
 
-![webservice.png](webservice.png)
+![webservice.png](https://raw.githubusercontent.com/hackerschoolmty/api101/master/webservice.png)
 
 ####Resources & relationships structure
 
@@ -124,7 +124,7 @@ There are two ways in which you can specify the content you are requesting:
 1. From the URI format(http://api.hackerschool.mx/members.json)
 2. From an Accept Header (application/json)
 
-![contentNegotiation](contentNegotiation.png)
+![contentNegotiation](https://raw.githubusercontent.com/hackerschoolmty/api101/master/webservice.png)
 
 
 ####Actually using the API
