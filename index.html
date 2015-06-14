@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Api101 by hackerschoolmty</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Api101</h1>
+      <h2 class="project-tagline">The way api are built is here</h2>
+      <a href="https://github.com/hackerschoolmty/api101" class="btn">View on GitHub</a>
+      <a href="https://github.com/hackerschoolmty/api101/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/hackerschoolmty/api101/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="apis-101" class="anchor" href="#apis-101" aria-hidden="true"><span class="octicon octicon-link"></span></a>APIs 101</h1>
+
+<p>Because we all want to talk to each other, no matter what.</p>
+
+<h3>
+<a id="topics" class="anchor" href="#topics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Topics</h3>
+
+<ul>
+<li>Introduction to APIs
+
+<ul>
+<li><a href="#why-should-i-care">Why should I care?</a></li>
+<li><a href="#webservice-structure">Webservice structure</a></li>
+<li><a href="#resources--relationships-structure">Resources &amp; relationships structure</a></li>
+<li><a href="#content-negotiation">Content-Negotiation</a></li>
+<li><a href="#actually-using-the-api">Actually using the API</a></li>
+</ul>
+</li>
+<li>
+<a href="#versioning">Versioning</a>
+
+<ul>
+<li>Parameter</li>
+<li>URL parameters</li>
+<li>Headers</li>
+</ul>
+</li>
+<li><a href="#activemodelserializers">ActiveModelSerializers</a></li>
+<li>
+<a href="#exploring-api">Exploring API</a>
+
+<ul>
+<li>Sabisu</li>
+</ul>
+</li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+
+<h2></h2>
+
+<h3>
+<a id="introduction-to-apis" class="anchor" href="#introduction-to-apis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction to APIs</h3>
+
+<h4>
+<a id="why-should-i-care" class="anchor" href="#why-should-i-care" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why should I care?</h4>
+
+<ul>
+<li>It is scalable</li>
+<li>It is trendy</li>
+<li>The need to communicate multiple devices between each other</li>
+<li>Keep sync easily</li>
+<li>Performance</li>
+<li>Interoperability</li>
+<li>Mobile devices, watches, drones, arduino</li>
+</ul>
+
+<h4>
+<a id="webservice-structure" class="anchor" href="#webservice-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Webservice structure</h4>
+
+<p><img src="webservice.png" alt="webservice.png"></p>
+
+<h4>
+<a id="resources--relationships-structure" class="anchor" href="#resources--relationships-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resources &amp; relationships structure</h4>
+
+<ul>
+<li>
+<p>Individual representation</p>
+
+<ul>
+<li>Keep in mind that the root key of the resource should be the name of the resource, but just as a guide not actually a rule.</li>
+</ul>
+
+<p><strong>An individual resource should be represented as a simple JSON object</strong></p>
+</li>
+</ul>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>user<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+        <span class="pl-s"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>kurenn@icalialabs.com<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Abraham Kuri<span class="pl-pds">"</span></span>      
+    }
+}</pre></div>
+
+<ul>
+<li>Multiple resource representation</li>
+</ul>
+
+<p><strong>A collection of resources should be represented as an
+array of JSON objects</strong></p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>users<span class="pl-pds">"</span></span>: [{
+            <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>kurenn@icalialabs.com<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Abraham Kuri<span class="pl-pds">"</span></span>  
+    }, {
+            <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>hola@hackerschool.mx<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Da hacker school<span class="pl-pds">"</span></span> 
+        }]
+}</pre></div>
+
+<ul>
+<li>To-One Relationship Resource Representation</li>
+</ul>
+
+<p><strong>An object embedded into another one</strong></p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>post<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+        <span class="pl-s"><span class="pl-pds">"</span>content<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>This is me teaching you about APIs<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>created_at<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>2014-10-12T19:34:23Z<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>author<span class="pl-pds">"</span></span>: {
+            <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Abraham Kuri<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<ul>
+<li>To-Many Relationship Resource Representation</li>
+</ul>
+
+<p><strong>An object embedded with a collection 
+of other related objects</strong></p>
+
+<div class="highlight highlight-json"><pre>{
+    <span class="pl-s"><span class="pl-pds">"</span>book<span class="pl-pds">"</span></span>: {
+        <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+        <span class="pl-s"><span class="pl-pds">"</span>title<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>API's on Rails<span class="pl-pds">"</span></span>,
+        <span class="pl-s"><span class="pl-pds">"</span>authors<span class="pl-pds">"</span></span>: [{
+            <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">1</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Abraham Kuri<span class="pl-pds">"</span></span>
+        }, {
+            <span class="pl-s"><span class="pl-pds">"</span>id<span class="pl-pds">"</span></span>: <span class="pl-c1">2</span>,
+            <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>Osvaldo Ayala<span class="pl-pds">"</span></span>
+        }]
+    }
+}</pre></div>
+
+<p><em>Be aware that this may be inefficient, due to the number of authors. In this case creating another endpoint for authors, would be a good solution.</em></p>
+
+<h4>
+<a id="content-negotiation" class="anchor" href="#content-negotiation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Content-Negotiation</h4>
+
+<blockquote>
+<p>Content negotiation is a mechanism defined in the HTTP specification that makes it possible to serve different versions of a document (or more generally, a resource representation) at the same URI</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Content_negotiation">https://en.wikipedia.org/wiki/Content_negotiation</a></p>
+</blockquote>
+
+<p>There are two ways in which you can specify the content you are requesting:</p>
+
+<ol>
+<li>From the URI format(<a href="http://api.hackerschool.mx/members.json">http://api.hackerschool.mx/members.json</a>)</li>
+<li>From an Accept Header (application/json)</li>
+</ol>
+
+<p><img src="contentNegotiation.png" alt="contentNegotiation"></p>
+
+<h4>
+<a id="actually-using-the-api" class="anchor" href="#actually-using-the-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Actually using the API</h4>
+
+<p>We have put together a super simple API to play around a little bit:</p>
+
+<p><a href="https://still-earth-6525.herokuapp.com/api/">https://still-earth-6525.herokuapp.com/api/</a></p>
+
+<p>It only contains a basic CRUD for users, the endpoints are as follow:</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Request verb</th>
+            <th>EndPoint</th>
+            <th>Params</th>
+            <th>Response Code</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>GET</td>
+            <td>/users</td>
+            <td> - </td>
+            <td>200 - Success</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/users/:id</td>
+            <td>:id</td>
+            <td>200 - Success</td>
+        </tr>
+        <tr>
+            <td>POST</td>
+            <td>/users</td>
+            <td>user[email], user[name]</td>
+            <td>201 - Created</td>
+        </tr>
+        <tr>
+            <td>PUT/PATCH</td>
+            <td>/users/:id</td>
+            <td>:id, user[email], user[name]</td>
+            <td>200 - Success</td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>/users/:id</td>
+            <td>:id</td>
+            <td>204 - No content</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>We will need a client to test this, let's do it with <a href="https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm">Postman</a></p>
+
+<h3>
+<a id="versioning" class="anchor" href="#versioning" aria-hidden="true"><span class="octicon octicon-link"></span></a>Versioning</h3>
+
+<p>Versioning helps prevent major changes from breaking existing clients.</p>
+
+<p>We can version the API and allow the access through different strategies:</p>
+
+<p><strong>URI param</strong></p>
+
+<p>With this approach you will expect a URI like:</p>
+
+<p><code>http://hackerschool.com/api/:version</code></p>
+
+<p>Here the <code>:version</code> could be:</p>
+
+<ul>
+<li>v1</li>
+<li>1</li>
+<li>1.023243</li>
+<li>v2.1.3</li>
+</ul>
+
+<p>It really depends on your versioning structure.</p>
+
+<p><strong>URL param</strong></p>
+
+<p>With this approach you will expect a URI like:</p>
+
+<p><code>http://hackerschool.com/api?version=:version</code></p>
+
+<p>Here the <code>:version</code> could be:</p>
+
+<ul>
+<li>v1</li>
+<li>1</li>
+<li>1.023243</li>
+<li>v2.1.3</li>
+</ul>
+
+<p>It really depends on your versioning structure.</p>
+
+<p><strong>Request header</strong></p>
+
+<p>With this approach you will expect a URI like:</p>
+
+<p><code>http://hackerschool.com/api/</code></p>
+
+<p>But on the request headers, you have to include something like:</p>
+
+<p><code>Accept: application/vnd.hackerschool.mx+json; version=1</code></p>
+
+<p>Here the <code>:version</code> could be:</p>
+
+<ul>
+<li>v1</li>
+<li>1</li>
+<li>1.023243</li>
+<li>v2.1.3</li>
+</ul>
+
+<p>It really depends on your versioning structure.</p>
+
+<h2></h2>
+
+<p><em>It is highly recommended that you keep your api behind a subdomain, this way you can scalate via DNS, in case your API is being under a heavy demand</em></p>
+
+<h3>
+<a id="activemodelserializers" class="anchor" href="#activemodelserializers" aria-hidden="true"><span class="octicon octicon-link"></span></a>ActiveModelSerializers</h3>
+
+<blockquote>
+<p>ActiveModel::Serializers brings convention over configuration to your JSON generation.</p>
+
+<p><a href="https://github.com/rails-api/active_model_serializers">https://github.com/rails-api/active_model_serializers</a></p>
+</blockquote>
+
+<p><strong>Code Time</strong></p>
+
+<h3>
+<a id="exploring-api" class="anchor" href="#exploring-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exploring API</h3>
+
+<p>Sabisu is a powerful postman-like engine client to explore your Rails application api. It's still under heavy development, but it is quite impressive and beautiful</p>
+
+<p><a href="https://github.com/IcaliaLabs/sabisu-rails">https://github.com/IcaliaLabs/sabisu-rails</a></p>
+
+<p><strong>Sabisu on the wild</strong></p>
+
+<p><a href="http://sabisu.herokuapp.com/sabisu_rails/explorer">http://sabisu.herokuapp.com/sabisu_rails/explorer</a></p>
+
+<h3>
+<a id="resources" class="anchor" href="#resources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Resources</h3>
+
+<ul>
+<li><a href="http://jsonapi.org/">http://jsonapi.org/</a></li>
+<li><a href="https://github.com/rails-api/active_model_serializers">https://github.com/rails-api/active_model_serializers</a></li>
+<li><a href="http://apionrails.icalialabs.com/book/">http://apionrails.icalialabs.com/book/</a></li>
+<li><a href="https://www.youtube.com/watch?v=HKksu4aq7Go">https://www.youtube.com/watch?v=HKksu4aq7Go</a></li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/hackerschoolmty/api101">Api101</a> is maintained by <a href="https://github.com/hackerschoolmty">hackerschoolmty</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
