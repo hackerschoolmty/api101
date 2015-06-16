@@ -124,7 +124,7 @@ There are two ways in which you can specify the content you are requesting:
 1. From the URI format(http://api.hackerschool.mx/members.json)
 2. From an Accept Header (application/json)
 
-![contentNegotiation](https://raw.githubusercontent.com/hackerschoolmty/api101/master/webservice.png)
+![contentNegotiation](https://raw.githubusercontent.com/hackerschoolmty/api101/master/contentNegotiation.png)
 
 
 ####Actually using the API
@@ -263,6 +263,7 @@ Sabisu is a powerful postman-like engine client to explore your Rails applicatio
 * [https://github.com/rails-api/active_model_serializers](https://github.com/rails-api/active_model_serializers)
 * [http://apionrails.icalialabs.com/book/](http://apionrails.icalialabs.com/book/)
 * [https://www.youtube.com/watch?v=HKksu4aq7Go](https://www.youtube.com/watch?v=HKksu4aq7Go)
+* [https://github.com/tripit/slate](https://github.com/tripit/slate)
 
 
 
