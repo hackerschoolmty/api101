@@ -14,6 +14,7 @@ Because we all want to talk to each other, no matter what.
 	* URL parameters
 	* Headers
 * [ActiveModelSerializers](#activemodelserializers)
+* [User Handling](#user-handling)
 * [Exploring API](#exploring-api)
 	* Sabisu
 * [Resources](#resources)
@@ -246,6 +247,45 @@ It really depends on your versioning structure.
 > https://github.com/rails-api/active_model_serializers
 
 **Code Time**
+
+
+###User handling
+
+In this course we will keep things simple and we won't use [Devise](https://github.com/plataformatec/devise) to handle users authentication, instead we will use the built-in authentication module that comes with Rails.
+
+We need a `User` model with the following attributes:
+
+```console
+% rails g model User email password_digest
+% rake db:migrate
+```
+
+After that we just need to update our `User` model to include a class method named `has_secure_password`
+
+```ruby
+class User < ActiveRecord::Base
+  has_secure_password
+end
+```
+
+We still need to add some simple validations to our user model:
+
+```ruby
+class User < ActiveRecord::Base
+  has_secure_password
+  
+  validates :email, presence: true,
+            			uniqueness: { :case_sensitive => false }
+            			
+  # We add the confirmation validation, as Rails won't do it for us =(
+  validates :password,
+    :length => { :minimum => 8 },
+    :confirmation => true
+end
+```
+
+Once we have our validations on the model, we can jump into our controller and set some actions to handle `authentication`.
+
 
 ###Exploring API
 
